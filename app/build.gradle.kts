@@ -8,6 +8,10 @@ android {
     namespace = "com.ali.onlinepaymenttracker"
     compileSdk = 34
 
+    buildFeatures {
+        viewBinding = true
+    }
+
     defaultConfig {
         applicationId = "com.ali.onlinepaymenttracker"
         minSdk = 24
