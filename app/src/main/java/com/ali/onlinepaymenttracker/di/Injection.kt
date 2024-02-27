@@ -1,4 +1,4 @@
-package com.ali.expensetracker.di
+package com.ali.onlinepaymenttracker.di
 
 class Injection {
 }

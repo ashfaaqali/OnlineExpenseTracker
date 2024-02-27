@@ -1,3 +1,3 @@
-package com.ali.expensetracker.data.model
+package com.ali.onlinepaymenttracker.data.model
 
 data class Transaction (val amount: Int)

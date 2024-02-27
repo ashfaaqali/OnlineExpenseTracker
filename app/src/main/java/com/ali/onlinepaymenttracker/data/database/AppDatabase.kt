@@ -1,4 +1,4 @@
-package com.ali.expensetracker.data.database
+package com.ali.onlinepaymenttracker.data.database
 
 class AppDatabase {
 }
