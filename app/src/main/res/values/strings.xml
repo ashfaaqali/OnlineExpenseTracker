@@ -2,6 +2,14 @@
     <string name="app_name">OnlinePaymentTracker</string>
     <string name="permission_txt">This app needs SMS permission. Please grant the permission.</string>
     <string name="grant_permission">Grant Permission</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="add_expense">Add Expense</string>
+    <string name="enter_location">Enter location</string>
+    <string name="location">Location (Optional)</string>
+    <string name="enter_note">Enter note</string>
+    <string name="expense_note">Expense Note</string>
+    <string name="time">Time</string>
+    <string name="date">Date</string>
+    <string name="date_and_time">Date and Time (Time is optional)</string>
+    <string name="enter_amount">Enter amount</string>
+    <string name="amount">Amount</string>
 </resources>
