@@ -1,7 +1,7 @@
 package com.ali.onlinepaymenttracker.data.repository
 
 import androidx.lifecycle.LiveData
-import com.ali.onlinepaymenttracker.dao.ExpenditureDAO
+import com.ali.onlinepaymenttracker.data.dao.ExpenditureDAO
 import com.ali.onlinepaymenttracker.data.model.Expenditure
 
 class ExpenditureRepository(private val expenseDAO: ExpenditureDAO) {

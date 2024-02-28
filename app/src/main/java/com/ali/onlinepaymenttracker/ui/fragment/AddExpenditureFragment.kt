@@ -35,7 +35,7 @@ class AddExpenditureFragment : Fragment() {
         binding.btnAddExpense.setOnClickListener {
 
             binding.apply {
-                amount = editTextAmount.text.toString()
+                amount = "₹" + editTextAmount.text.toString()
                 note = editTextNote.text.toString()
                 dateTxt = editTextDate.text.toString()
                 time = editTextTime.text.toString()

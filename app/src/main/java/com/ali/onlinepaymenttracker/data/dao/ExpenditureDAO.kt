@@ -1,4 +1,4 @@
-package com.ali.onlinepaymenttracker.dao
+package com.ali.onlinepaymenttracker.data.dao
 
 import androidx.lifecycle.LiveData
 import androidx.room.Dao

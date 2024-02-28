@@ -4,7 +4,7 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.ali.onlinepaymenttracker.dao.ExpenditureDAO
+import com.ali.onlinepaymenttracker.data.dao.ExpenditureDAO
 import com.ali.onlinepaymenttracker.data.model.Expenditure
 
 @Database(entities = [Expenditure::class], version = 1, exportSchema = false)

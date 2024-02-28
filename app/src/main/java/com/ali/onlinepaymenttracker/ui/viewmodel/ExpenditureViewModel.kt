@@ -11,7 +11,7 @@ import kotlinx.coroutines.launch
 
 class ExpenditureViewModel(application: Application) : AndroidViewModel(application) {
 
-    private val getAllExpenditures: LiveData<List<Expenditure>>
+    val getAllExpenditures: LiveData<List<Expenditure>>
     private val repository: ExpenditureRepository
 
     init {
