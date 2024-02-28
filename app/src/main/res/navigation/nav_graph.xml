@@ -16,7 +16,7 @@
         tools:layout="@layout/fragment_expense_list" />
     <fragment
         android:id="@+id/splashFragment"
-        android:name="com.ali.onlinepaymenttracker.SplashFragment"
+        android:name="com.ali.onlinepaymenttracker.ui.fragment.SplashFragment"
         android:label="fragment_splash"
         tools:layout="@layout/fragment_splash" />
 </navigation>
