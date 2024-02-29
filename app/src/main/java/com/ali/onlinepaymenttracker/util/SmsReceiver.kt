@@ -6,6 +6,7 @@ import android.content.Intent
 import android.provider.Telephony
 import android.telephony.SmsMessage
 import android.util.Log
+import com.ali.onlinepaymenttracker.util.NotificationUtil.showDebitNotification
 import java.util.regex.Pattern
 
 class SmsReceiver : BroadcastReceiver() {
@@ -27,6 +28,10 @@ class SmsReceiver : BroadcastReceiver() {
 
                     // Log the extracted amount and timestamp
                     Log.d("SmsReceiver", "Amount: $amount, Timestamp: $timestamp")
+
+                    if (isDebitMessage(message)) {
+                        showDebitNotification(context)
+                    }
 
                 }
             }
@@ -51,5 +56,9 @@ class SmsReceiver : BroadcastReceiver() {
         } else {
             null
         }
+    }
+
+    private fun isDebitMessage(message: String): Boolean {
+        return message.contains("debited", ignoreCase = true)
     }
 }
