@@ -24,10 +24,10 @@ class SmsReceiver : BroadcastReceiver() {
 
                     // Parsing the SMS message to extract amount and timestamp
                     val amount = extractAmount(message)
-                    val timestamp = extractTimestamp(message)
+                    val (date, time) = extractTimestamp(message)
 
                     // Log the extracted amount and timestamp
-                    Log.d("SmsReceiver", "Amount: $amount, Timestamp: $timestamp")
+                    Log.d("SmsReceiver", "Amount: $amount, Date: $date, Time: $time")
 
                     if (isDebitMessage(message)) {
                         showDebitNotification(context)
@@ -48,14 +48,22 @@ class SmsReceiver : BroadcastReceiver() {
         }
     }
 
-    private fun extractTimestamp(message: String): String? {
+    private fun extractTimestamp(message: String): Pair<String?, String?> {
         val timestampPattern = Pattern.compile("""(\d{2}-\d{2}-\d{4} \d{2}:\d{2}:\d{2})""")
         val matcher = timestampPattern.matcher(message)
-        return if (matcher.find()) {
-            matcher.group(1)
-        } else {
-            null
+        var date: String? = null
+        var time: String? = null
+        if (matcher.find()) {
+            val dateTime = matcher.group(1)
+            val parts = dateTime?.split(" ")
+            if (parts != null) {
+                if (parts.size == 2) {
+                    date = parts[0]
+                    time = parts[1]
+                }
+            }
         }
+        return Pair(date, time)
     }
 
     private fun isDebitMessage(message: String): Boolean {
