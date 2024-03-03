@@ -36,7 +36,7 @@ class SmsReceiver : BroadcastReceiver() {
                     // Log the extracted amount and timestamp
 
                     if (isDebitMessage(message)) {
-                        showDebitNotification(context)
+                        showDebitNotification(context, amount, date, time)
                         viewModel.updateSmsData(amount, date, time, true)
                         Log.d("SmsReceiver", "Amount: $amount, Date: $date, Time: $time")
                     }

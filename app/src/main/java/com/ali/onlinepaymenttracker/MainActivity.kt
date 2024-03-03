@@ -17,14 +17,24 @@ class MainActivity : AppCompatActivity() {
         if (intent.hasExtra(AppConstants.FRAGMENT_TO_OPEN)) {
             val fragmentToOpen = intent.getStringExtra(AppConstants.FRAGMENT_TO_OPEN)
             if (fragmentToOpen == AppConstants.ADD_EXPENDITURE_FRAGMENT) {
-                openAddExpenditureFragment()
+                val amt = intent.getIntExtra(AppConstants.AMOUNT, 0)
+                val date = intent.getStringExtra(AppConstants.DATE)
+                val time = intent.getStringExtra(AppConstants.TIME)
+                openAddExpenditureFragment(amt, date, time)
             }
         }
     }
 
-    private fun openAddExpenditureFragment() {
+    private fun openAddExpenditureFragment(amt: Int, date: String?, time: String?) {
+        val fragment = AddExpenditureFragment().apply{
+            arguments = Bundle().apply {
+                putInt(AppConstants.AMOUNT, amt)
+                putString(AppConstants.DATE, date)
+                putString(AppConstants.TIME, time)
+            }
+        }
         supportFragmentManager.beginTransaction()
-            .replace(R.id.fragmentContainerView, AddExpenditureFragment())
+            .replace(R.id.fragmentContainerView, fragment)
             .addToBackStack(null)
             .commit()
     }

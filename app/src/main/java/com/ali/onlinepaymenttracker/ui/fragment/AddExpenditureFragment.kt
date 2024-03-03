@@ -10,6 +10,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.ali.onlinepaymenttracker.data.model.Expenditure
 import com.ali.onlinepaymenttracker.databinding.FragmentAddExpenditureBinding
 import com.ali.onlinepaymenttracker.ui.viewmodel.ExpenditureViewModel
+import com.ali.onlinepaymenttracker.util.AppConstants
 
 class AddExpenditureFragment : Fragment() {
     private lateinit var binding: FragmentAddExpenditureBinding
@@ -26,7 +27,21 @@ class AddExpenditureFragment : Fragment() {
     ): View {
         binding = FragmentAddExpenditureBinding.inflate(layoutInflater)
         viewModel = ViewModelProvider(this)[ExpenditureViewModel::class.java]
+        if (arguments != null){
+            amount = requireArguments().getInt(AppConstants.AMOUNT, 0)
+            dateTxt = requireArguments().getString(AppConstants.DATE).toString()
+            time = requireArguments().getString(AppConstants.TIME).toString()
+            prefillData()
+        }
         return binding.root
+    }
+
+    private fun prefillData() {
+        binding.apply {
+            editTextAmount.setText(amount.toString())
+            editTextDate.setText(dateTxt)
+            editTextTime.setText(time)
+        }
     }
 
 

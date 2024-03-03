@@ -7,4 +7,7 @@ object AppConstants {
     const val NOTIFICATION_CHANNEL_ID = 98
     const val FRAGMENT_TO_OPEN = "fragment_to_open"
     const val ADD_EXPENDITURE_FRAGMENT = "add_expenditure"
+    const val AMOUNT = "amount"
+    const val DATE = "date"
+    const val TIME = "time"
 }

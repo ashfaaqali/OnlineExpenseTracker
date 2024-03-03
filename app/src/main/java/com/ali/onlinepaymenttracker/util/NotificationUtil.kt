@@ -16,11 +16,14 @@ import com.ali.onlinepaymenttracker.R
 
 object NotificationUtil {
 
-    fun showDebitNotification(context: Context?) {
+    fun showDebitNotification(context: Context?, amount: Int, date: String, time: String) {
 
         val intent = Intent(context, MainActivity::class.java).apply {
             flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
             putExtra(AppConstants.FRAGMENT_TO_OPEN, AppConstants.ADD_EXPENDITURE_FRAGMENT)
+            putExtra(AppConstants.AMOUNT, amount)
+            putExtra(AppConstants.DATE, date)
+            putExtra(AppConstants.TIME, time)
         }
         val pendingIntent = PendingIntent.getActivity(context, 0, intent,
             PendingIntent.FLAG_IMMUTABLE)
