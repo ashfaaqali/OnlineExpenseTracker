@@ -1,4 +1,4 @@
-package com.ali.onlinepaymenttracker.adapter
+package com.ali.onlinepaymenttracker.ui.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -23,11 +23,11 @@ class ExpenditureListAdapter(private val viewModelStoreOwner: ViewModelStoreOwne
         return MyViewHolder(binding)
     }
 
-    override fun onBindViewHolder(holder: ExpenditureListAdapter.MyViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         val currentItem = expenditureList[position]
 
         with(holder.binding){
-            amount.text = currentItem.amount
+            amount.text = currentItem.amount.toString()
             note.text = currentItem.note
             date.text = currentItem.date
         }

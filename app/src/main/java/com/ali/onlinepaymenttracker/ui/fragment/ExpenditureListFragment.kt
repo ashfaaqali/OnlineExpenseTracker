@@ -12,7 +12,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.ali.onlinepaymenttracker.R
-import com.ali.onlinepaymenttracker.adapter.ExpenditureListAdapter
+import com.ali.onlinepaymenttracker.ui.adapter.ExpenditureListAdapter
 import com.ali.onlinepaymenttracker.data.model.Expenditure
 import com.ali.onlinepaymenttracker.databinding.FragmentExpenditureListBinding
 import com.ali.onlinepaymenttracker.ui.viewmodel.ExpenditureViewModel

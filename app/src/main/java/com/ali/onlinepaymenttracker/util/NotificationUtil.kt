@@ -3,17 +3,28 @@ package com.ali.onlinepaymenttracker.util
 import android.Manifest
 import android.app.NotificationChannel
 import android.app.NotificationManager
+import android.app.PendingIntent
 import android.content.Context
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Build
 import androidx.core.app.ActivityCompat
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
+import com.ali.onlinepaymenttracker.MainActivity
 import com.ali.onlinepaymenttracker.R
 
 object NotificationUtil {
 
     fun showDebitNotification(context: Context?) {
+
+        val intent = Intent(context, MainActivity::class.java).apply {
+            flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+            putExtra(AppConstants.FRAGMENT_TO_OPEN, AppConstants.ADD_EXPENDITURE_FRAGMENT)
+        }
+        val pendingIntent = PendingIntent.getActivity(context, 0, intent,
+            PendingIntent.FLAG_IMMUTABLE)
+
         // Create a notification channel for devices running Android Oreo and above
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             val channel = NotificationChannel(
@@ -31,6 +42,8 @@ object NotificationUtil {
             .setSmallIcon(R.drawable.ic_clock)
             .setContentTitle("Debit Notification")
             .setContentText("You have received a debit message")
+            .setContentIntent(pendingIntent)
+            .setAutoCancel(true)
             .setPriority(NotificationCompat.PRIORITY_MAX)
             .build()
 

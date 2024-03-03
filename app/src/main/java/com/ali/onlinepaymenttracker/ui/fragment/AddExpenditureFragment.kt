@@ -10,12 +10,11 @@ import androidx.lifecycle.ViewModelProvider
 import com.ali.onlinepaymenttracker.data.model.Expenditure
 import com.ali.onlinepaymenttracker.databinding.FragmentAddExpenditureBinding
 import com.ali.onlinepaymenttracker.ui.viewmodel.ExpenditureViewModel
-import java.util.Date
 
 class AddExpenditureFragment : Fragment() {
     private lateinit var binding: FragmentAddExpenditureBinding
     private lateinit var viewModel: ExpenditureViewModel
-    private lateinit var amount: String
+    private var amount: Int = 0
     private lateinit var note: String
     private lateinit var dateTxt: String
     private lateinit var time: String
@@ -30,12 +29,13 @@ class AddExpenditureFragment : Fragment() {
         return binding.root
     }
 
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
         binding.btnAddExpense.setOnClickListener {
 
             binding.apply {
-                amount = "₹" + editTextAmount.text.toString()
+                amount = editTextAmount.text.toString().toInt()
                 note = editTextNote.text.toString()
                 dateTxt = editTextDate.text.toString()
                 time = editTextTime.text.toString()
@@ -47,11 +47,27 @@ class AddExpenditureFragment : Fragment() {
         }
     }
 
-    private fun inputCheck(amount: String?, note: String?, dateTxt: String?): Boolean {
+    override fun onStart() {
+        super.onStart()
+        observeSmsData()
+    }
+
+    private fun observeSmsData() {
+        viewModel.smsData.observe(viewLifecycleOwner) { smsData ->
+            if (smsData != null && smsData.fromNotification) {
+                // Pre-fill the amount, date, and time fields
+                binding.editTextAmount.setText(smsData.amount)
+                binding.editTextDate.setText(smsData.date)
+                binding.editTextTime.setText(smsData.time)
+            }
+        }
+    }
+
+    private fun inputCheck(amount: Int?, note: String?, dateTxt: String?): Boolean {
         var isValid = true
 
         binding.apply {
-            if (amount.isNullOrEmpty()) {
+            if (amount == null || amount == 0) {
                 editTextAmount.error = "Please enter amount"
                 isValid = false
             }
@@ -70,7 +86,7 @@ class AddExpenditureFragment : Fragment() {
     }
 
     private fun addExpenditureToDb(
-        amount: String,
+        amount: Int,
         note: String,
         date: String,
         time: String,
@@ -87,5 +103,4 @@ class AddExpenditureFragment : Fragment() {
         Log.d("DataInserted", expenditure.toString())
         viewModel.insertExpenditure(expenditure)
     }
-
 }
