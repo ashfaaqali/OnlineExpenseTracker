@@ -13,8 +13,8 @@ import android.view.ViewGroup
 import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
 import androidx.navigation.fragment.findNavController
-import com.ali.onlinepaymenttracker.R
-import com.ali.onlinepaymenttracker.databinding.FragmentSplashBinding
+import com.onlineexpensetracker.app.R
+import com.onlineexpensetracker.app.databinding.FragmentSplashBinding
 
 class SplashFragment : Fragment() {
     private lateinit var binding: FragmentSplashBinding

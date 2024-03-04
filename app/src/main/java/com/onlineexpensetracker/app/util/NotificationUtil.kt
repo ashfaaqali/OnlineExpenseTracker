@@ -11,8 +11,8 @@ import android.os.Build
 import androidx.core.app.ActivityCompat
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
-import com.ali.onlinepaymenttracker.R
 import com.onlineexpensetracker.app.MainActivity
+import com.onlineexpensetracker.app.R
 
 object NotificationUtil {
 

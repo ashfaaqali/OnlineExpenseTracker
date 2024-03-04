@@ -2,7 +2,6 @@ package com.onlineexpensetracker.app
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import com.ali.onlinepaymenttracker.R
 import com.onlineexpensetracker.app.ui.fragment.AddExpenditureFragment
 import com.onlineexpensetracker.app.util.AppConstants
 

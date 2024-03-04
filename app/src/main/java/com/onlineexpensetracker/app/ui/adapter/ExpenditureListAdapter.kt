@@ -4,8 +4,8 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelStoreOwner
 import androidx.recyclerview.widget.RecyclerView
-import com.ali.onlinepaymenttracker.databinding.ExpenditureCardBinding
 import com.onlineexpensetracker.app.data.model.Expenditure
+import com.onlineexpensetracker.app.databinding.ExpenditureCardBinding
 
 class ExpenditureListAdapter(private val viewModelStoreOwner: ViewModelStoreOwner) :
     RecyclerView.Adapter<ExpenditureListAdapter.MyViewHolder>() {

@@ -5,7 +5,7 @@ plugins {
 }
 
 android {
-    namespace = "com.ali.onlinepaymenttracker"
+    namespace = "com.onlineexpensetracker.app"
     compileSdk = 34
 
     buildFeatures {
@@ -13,7 +13,7 @@ android {
     }
 
     defaultConfig {
-        applicationId = "com.ali.onlinepaymenttracker"
+        applicationId = "com.onlineexpensetracker.app"
         minSdk = 24
         targetSdk = 34
         versionCode = 1

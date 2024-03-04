@@ -16,8 +16,8 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
 import androidx.navigation.fragment.findNavController
-import com.ali.onlinepaymenttracker.R
-import com.ali.onlinepaymenttracker.databinding.FragmentPermissionBinding
+import com.onlineexpensetracker.app.R
+import com.onlineexpensetracker.app.databinding.FragmentPermissionBinding
 
 class PermissionFragment : Fragment() {
     private lateinit var binding: FragmentPermissionBinding
