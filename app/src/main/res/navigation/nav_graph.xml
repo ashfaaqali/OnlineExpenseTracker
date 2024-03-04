@@ -7,21 +7,21 @@
 
     <fragment
         android:id="@+id/permissionFragment"
-        android:name="com.ali.onlinepaymenttracker.ui.fragment.PermissionFragment"
+        android:name="com.onlineexpensetracker.app.ui.fragment.PermissionFragment"
         android:label="PermissionFragment" />
     <fragment
         android:id="@+id/expenseListFragment"
-        android:name="com.ali.onlinepaymenttracker.ui.fragment.ExpenditureListFragment"
+        android:name="com.onlineexpensetracker.app.ui.fragment.ExpenditureListFragment"
         android:label="fragment_expense_list"
         tools:layout="@layout/fragment_expenditure_list" />
     <fragment
         android:id="@+id/splashFragment"
-        android:name="com.ali.onlinepaymenttracker.ui.fragment.SplashFragment"
+        android:name="com.onlineexpensetracker.app.ui.fragment.SplashFragment"
         android:label="fragment_splash"
         tools:layout="@layout/fragment_splash" />
     <fragment
         android:id="@+id/addExpenditureFragment"
-        android:name="com.ali.onlinepaymenttracker.ui.fragment.AddExpenditureFragment"
+        android:name="com.onlineexpensetracker.app.ui.fragment.AddExpenditureFragment"
         android:label="fragment_add_expenditure"
         tools:layout="@layout/fragment_add_expenditure" />
 </navigation>

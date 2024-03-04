@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">OnlinePaymentTracker</string>
+    <string name="app_name">PaisaManager</string>
     <string name="permission_txt">This app needs SMS and Notification permission to .</string>
     <string name="grant_permission">Grant Permission</string>
     <string name="add_expense">Add Expense</string>
