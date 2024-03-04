@@ -37,7 +37,6 @@ class SmsReceiver : BroadcastReceiver() {
 
                     if (isDebitMessage(message)) {
                         showDebitNotification(context, amount, date, time)
-                        viewModel.updateSmsData(amount, date, time, true)
                         Log.d("SmsReceiver", "Amount: $amount, Date: $date, Time: $time")
                     }
 
@@ -46,7 +45,7 @@ class SmsReceiver : BroadcastReceiver() {
         }
     }
     private fun extractAmount(message: String): Int {
-        val amountPattern = Pattern.compile("""Rs\.(\d+(\.\d{1,2})?)""")
+        val amountPattern = Pattern.compile("""Rs\.?\s?(\d+(\.\d{1,2})?)""")
         val matcher = amountPattern.matcher(message)
         return if (matcher.find()) {
             val amountString = matcher.group(1)
@@ -56,6 +55,7 @@ class SmsReceiver : BroadcastReceiver() {
             throw IllegalArgumentException("Amount not found in the message") // Throw an exception if no match is found
         }
     }
+
 
 //    private fun extractAmount(message: String): Int? {
 //        val amountPattern = Pattern.compile("""Rs\.(\d+(\.\d{1,2})?)""")

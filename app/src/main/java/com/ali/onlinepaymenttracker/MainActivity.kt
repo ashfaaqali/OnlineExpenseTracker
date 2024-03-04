@@ -1,6 +1,7 @@
 package com.ali.onlinepaymenttracker
 
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import com.ali.onlinepaymenttracker.ui.fragment.AddExpenditureFragment
 import com.ali.onlinepaymenttracker.util.AppConstants
@@ -14,12 +15,13 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun checkNotificationClick() {
-        if (intent.hasExtra(AppConstants.FRAGMENT_TO_OPEN)) {
+        if (intent != null && intent.hasExtra(AppConstants.FRAGMENT_TO_OPEN)) {
             val fragmentToOpen = intent.getStringExtra(AppConstants.FRAGMENT_TO_OPEN)
             if (fragmentToOpen == AppConstants.ADD_EXPENDITURE_FRAGMENT) {
                 val amt = intent.getIntExtra(AppConstants.AMOUNT, 0)
                 val date = intent.getStringExtra(AppConstants.DATE)
                 val time = intent.getStringExtra(AppConstants.TIME)
+
                 openAddExpenditureFragment(amt, date, time)
             }
         }
