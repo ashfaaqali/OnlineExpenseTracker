@@ -1,35 +1,42 @@
 package com.ali.onlinepaymenttracker.ui.fragment
 
+import android.app.DatePickerDialog
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.DatePicker
 import androidx.lifecycle.ViewModelProvider
 import com.ali.onlinepaymenttracker.data.model.Expenditure
 import com.ali.onlinepaymenttracker.databinding.FragmentAddExpenditureBinding
 import com.ali.onlinepaymenttracker.ui.viewmodel.ExpenditureViewModel
 import com.ali.onlinepaymenttracker.util.AppConstants
+import java.text.SimpleDateFormat
+import java.util.Calendar
+import java.util.Locale
 
-class AddExpenditureFragment : Fragment() {
+class AddExpenditureFragment : Fragment(), DatePickerDialog.OnDateSetListener {
     private lateinit var binding: FragmentAddExpenditureBinding
     private lateinit var viewModel: ExpenditureViewModel
     private var amount: Int = 0
     private lateinit var note: String
-    private lateinit var dateTxt: String
+    private lateinit var date: String
     private lateinit var time: String
     private lateinit var location: String
-
+    private val calendar = Calendar.getInstance()
+    private val dateFormatter = SimpleDateFormat("MMMM dd, yyyy", Locale.US)
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentAddExpenditureBinding.inflate(layoutInflater)
         viewModel = ViewModelProvider(this)[ExpenditureViewModel::class.java]
-        if (arguments != null){
+        binding.dateTv.text = dateFormatter.format(calendar.timeInMillis)
+        if (arguments != null) {
             amount = requireArguments().getInt(AppConstants.AMOUNT, 0)
-            dateTxt = requireArguments().getString(AppConstants.DATE).toString()
+            date = requireArguments().getString(AppConstants.DATE).toString()
             time = requireArguments().getString(AppConstants.TIME).toString()
             prefillData()
         }
@@ -39,43 +46,42 @@ class AddExpenditureFragment : Fragment() {
     private fun prefillData() {
         binding.apply {
             editTextAmount.setText(amount.toString())
-            editTextDate.setText(dateTxt)
-            editTextTime.setText(time)
+            dateTv.text = date
+            timeTv.text = time
         }
     }
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
+        binding.dateTv.setOnClickListener {
+            DatePickerDialog(
+                requireContext(),
+                this,
+                calendar.get(Calendar.YEAR),
+                calendar.get(Calendar.MONTH),
+                calendar.get(Calendar.DAY_OF_MONTH)
+            ).show()
+        }
+
         binding.btnAddExpense.setOnClickListener {
 
             binding.apply {
-                amount = editTextAmount.text.toString().toInt()
+                amount = editTextAmount.text.toString().toIntOrNull() ?: 0
                 note = editTextNote.text.toString()
-                dateTxt = editTextDate.text.toString()
-                time = editTextTime.text.toString()
+                date = dateTv.text.toString()
+                time = timeTv.text.toString()
                 location = editTextLocation.text.toString()
             }
 
-            if (inputCheck(amount, note, dateTxt))
-                addExpenditureToDb(amount, note, dateTxt, time, location)
+            if (inputCheck(amount, note, date))
+                addExpenditureToDb(amount, note, date, time, location)
         }
     }
 
-    override fun onStart() {
-        super.onStart()
-        observeSmsData()
-    }
-
-    private fun observeSmsData() {
-        viewModel.smsData.observe(viewLifecycleOwner) { smsData ->
-            if (smsData != null && smsData.fromNotification) {
-                // Pre-fill the amount, date, and time fields
-                binding.editTextAmount.setText(smsData.amount)
-                binding.editTextDate.setText(smsData.date)
-                binding.editTextTime.setText(smsData.time)
-            }
-        }
+    override fun onDateSet(p0: DatePicker?, year: Int, month: Int, dayOfMonth: Int) {
+        calendar.set(year, month, dayOfMonth)
+        binding.dateTv.text = dateFormatter.format(calendar.timeInMillis)
     }
 
     private fun inputCheck(amount: Int?, note: String?, dateTxt: String?): Boolean {
@@ -93,7 +99,7 @@ class AddExpenditureFragment : Fragment() {
             }
 
             if (dateTxt.isNullOrEmpty()) {
-                editTextDate.error = "Please select date"
+                dateTv.error = "Please select date"
                 isValid = false
             }
         }

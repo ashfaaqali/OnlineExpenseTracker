@@ -19,4 +19,9 @@
     <string name="sms_explanation_txt">This app requires SMS permission to automatically detect debit messages after you make a UPI payment. Don\'t worry, we\'ll only read and analyze messages related to your transactions for a seamless experience.</string>
     <string name="notification_explanation_txt">This app needs Notification permission to send you alerts after detecting debit messages following a UPI transaction. Stay updated with your transactions in real-time!</string>
     <string name="notification_permission">Notification Permission</string>
+    <string name="dummy_date">03-05-2024</string>
+    <string name="dummy_time">11:06 Am</string>
+    <string name="chai_cigarette">Chai cigarette</string>
+    <string name="_02_19_2024">02-19-2024</string>
+    <string name="_70">₹70</string>
 </resources>
