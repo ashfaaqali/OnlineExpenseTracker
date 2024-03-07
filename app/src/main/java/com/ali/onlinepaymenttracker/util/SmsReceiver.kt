@@ -35,15 +35,15 @@ class SmsReceiver : BroadcastReceiver() {
 
                     // Parsing the SMS message to extract amount and timestamp
                     val amount = extractAmount(message)
-                    val (date, time) = extractTimestamp(message)
+//                    val (date, time) = extractTimestamp(message)
 
-                    val formattedDate = formatDate(convertDateToStandardFormat(date))
-                    Log.d("SmsReceiver", "Amount: $amount, Date: $date, FormattedDate: $formattedDate, Time: $time")
+//                    val formattedDate = formatDate(convertDateToStandardFormat(date))
+                    Log.d("SmsReceiver", "Amount: $amount")
 
                     // Log the extracted amount and timestamp
 
                     if (isDebitMessage(message)) {
-                        showDebitNotification(context, amount, formattedDate, time)
+                        showDebitNotification(context, amount)
                     }
 
                 }
@@ -64,60 +64,61 @@ class SmsReceiver : BroadcastReceiver() {
         }
     }
 
-    private fun extractTimestamp(message: String): Pair<String, String> {
-        val timestampPattern = Pattern.compile("""(\d{2}-\d{2}-\d{4} \d{2}:\d{2}:\d{2})""")
-        val matcher = timestampPattern.matcher(message)
-        var date = ""
-        var time = ""
-        if (matcher.find()) {
-            val dateTime = matcher.group(1)
-            val parts = dateTime?.split(" ")
-            if (parts != null) {
-                if (parts.size == 2) {
-                    date = parts[0]
-                    time = parts[1]
-                }
-            }
-        }
-        return Pair(date, time)
-    }
-
-    private fun convertDateToStandardFormat(date: String): Date? {
-        // List of possible input date formats
-        val inputDateFormats = arrayOf(
-            "dd-MM-yyyy",
-            "MM/dd/yyyy",
-            "yyyy-MM-dd",
-            "dd.MM.yyyy",
-            "dd/MM/yyyy",
-            "yyyyMMdd"
-        )
-
-        for (inputFormat in inputDateFormats) {
-            try {
-                // Parse the date using the current format
-                val inputDateFormat = SimpleDateFormat(inputFormat, Locale.US)
-                val parsedDate = inputDateFormat.parse(date)
-
-                // If parsing is successful, return the parsed date
-                if (parsedDate != null) {
-                    return parsedDate
-                }
-            } catch (e: Exception) {
-                // Continue to the next format if parsing fails
-                continue
-            }
-        }
-
-        // Return null if no format matches
-        return null
-    }
-
-    private fun formatDate(date: Date?): String {
-        // Output date format
-        val outputDateFormat = SimpleDateFormat("MMMM dd, yyyy", Locale.US)
-        return outputDateFormat.format(date)
-    }
+//    private fun extractTimestamp(message: String): Pair<String, String> {
+//        val timestampPattern = Pattern.compile("""(\d{2}/\d{2}/\d{4} \d{2}:\d{2}:\d{2})""")
+//        val matcher = timestampPattern.matcher(message)
+//        var date = ""
+//        var time = ""
+//        if (matcher.find()) {
+//            val dateTime = matcher.group(1)
+//            val parts = dateTime?.split(" ")
+//            if (parts != null) {
+//                if (parts.size == 2) {
+//                    date = parts[0]
+//                    time = parts[1]
+//                }
+//            }
+//        }
+//        return Pair(date, time)
+//    }
+//
+//    private fun convertDateToStandardFormat(date: String): Date? {
+//        // List of possible input date formats
+//        val inputDateFormats = arrayOf(
+//            "dd/MM/yyyy",
+//            "dd-MM-yyyy",
+//            "MM/dd/yyyy",
+//            "yyyy-MM-dd",
+//            "dd.MM.yyyy",
+//            "yyyyMMdd"
+//        )
+//
+//        for (inputFormat in inputDateFormats) {
+//            try {
+//                // Parse the date using the current format
+//                val inputDateFormat = SimpleDateFormat(inputFormat, Locale.US)
+//                val parsedDate = inputDateFormat.parse(date)
+//                Log.d("Parsed Date", "$parsedDate")
+//                // If parsing is successful, return the parsed date
+//                if (parsedDate != null) {
+//                    return parsedDate
+//
+//                }
+//            } catch (e: Exception) {
+//                // Continue to the next format if parsing fails
+//                continue
+//            }
+//        }
+//
+//        // Return null if no format matches
+//        return null
+//    }
+//
+//    private fun formatDate(date: Date?): String {
+//        // Output date format
+//        val outputDateFormat = SimpleDateFormat("MMMM dd, yyyy", Locale.US)
+//        return outputDateFormat.format(date)
+//    }
 
 
 

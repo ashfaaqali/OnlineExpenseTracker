@@ -36,8 +36,8 @@ class AddExpenditureFragment : Fragment(), DatePickerDialog.OnDateSetListener {
         binding.dateTv.text = dateFormatter.format(calendar.timeInMillis)
         if (arguments != null) {
             amount = requireArguments().getInt(AppConstants.AMOUNT, 0)
-            date = requireArguments().getString(AppConstants.DATE).toString()
-            time = requireArguments().getString(AppConstants.TIME).toString()
+            // date = requireArguments().getString(AppConstants.DATE).toString()
+            // time = requireArguments().getString(AppConstants.TIME).toString()
             prefillData()
         }
         return binding.root
@@ -46,8 +46,8 @@ class AddExpenditureFragment : Fragment(), DatePickerDialog.OnDateSetListener {
     private fun prefillData() {
         binding.apply {
             editTextAmount.setText(amount.toString())
-            dateTv.text = date
-            timeTv.text = time
+            // dateTv.text = date
+            // timeTv.text = time
         }
     }
 
