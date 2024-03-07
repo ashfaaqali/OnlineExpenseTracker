@@ -27,7 +27,7 @@ class ExpenditureListAdapter(private val viewModelStoreOwner: ViewModelStoreOwne
         val currentItem = expenditureList[position]
 
         with(holder.binding){
-            amount.text = currentItem.amount.toString()
+            amount.text = "₹" + currentItem.amount.toString()
             note.text = currentItem.note
             date.text = currentItem.date
         }
