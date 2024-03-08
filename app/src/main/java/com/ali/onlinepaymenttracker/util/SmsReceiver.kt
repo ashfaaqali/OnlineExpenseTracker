@@ -10,9 +10,6 @@ import android.util.Log
 import androidx.lifecycle.ViewModelProvider
 import com.ali.onlinepaymenttracker.ui.viewmodel.ExpenditureViewModel
 import com.ali.onlinepaymenttracker.util.NotificationUtil.showDebitNotification
-import java.text.SimpleDateFormat
-import java.util.Date
-import java.util.Locale
 import java.util.regex.Pattern
 
 class SmsReceiver : BroadcastReceiver() {
@@ -52,7 +49,7 @@ class SmsReceiver : BroadcastReceiver() {
     }
 
     private fun extractAmount(message: String): Int {
-        val amountPattern = Pattern.compile("""Rs\.?\s?(\d+(\.\d{1,2})?)""")
+        val amountPattern = Pattern.compile("""(?:Rs\s|INR\s|Rs\.|INR\.|\b)\s?(\d+(\.\d{1,2})?)\b""")
         val matcher = amountPattern.matcher(message)
         return if (matcher.find()) {
             val amountString = matcher.group(1)
@@ -119,8 +116,6 @@ class SmsReceiver : BroadcastReceiver() {
 //        val outputDateFormat = SimpleDateFormat("MMMM dd, yyyy", Locale.US)
 //        return outputDateFormat.format(date)
 //    }
-
-
 
 
     private fun isDebitMessage(message: String): Boolean {
