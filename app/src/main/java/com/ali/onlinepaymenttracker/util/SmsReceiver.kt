@@ -28,18 +28,14 @@ class SmsReceiver : BroadcastReceiver() {
                 for (pdu in pdus) {
                     val smsMessage = SmsMessage.createFromPdu(pdu as ByteArray)
                     val message = smsMessage.messageBody
-//                    Log.d("SmsReceiver", "Received SMS: $message")
-
-                    // Parsing the SMS message to extract amount and timestamp
-                    val amount = extractAmount(message)
-//                    val (date, time) = extractTimestamp(message)
-
-//                    val formattedDate = formatDate(convertDateToStandardFormat(date))
-                    Log.d("SmsReceiver", "Amount: $amount")
-
-                    // Log the extracted amount and timestamp
+                    Log.d("SmsReceiver", "Received SMS: $message")
 
                     if (isDebitMessage(message)) {
+                        // Parsing the SMS message to extract amount and timestamp
+                        val amount = extractAmount(message)
+                        Log.d("SmsReceiver", "Amount: $amount")
+                        // val (date, time) = extractTimestamp(message)
+                        // val formattedDate = formatDate(convertDateToStandardFormat(date))
                         showDebitNotification(context, amount)
                     }
 
@@ -49,7 +45,8 @@ class SmsReceiver : BroadcastReceiver() {
     }
 
     private fun extractAmount(message: String): Int {
-        val amountPattern = Pattern.compile("""(?:Rs\s|INR\s|Rs\.|INR\.|\b)\s?(\d+(\.\d{1,2})?)\b""")
+        val amountPattern =
+            Pattern.compile("""(?:Rs\s|INR\s|Rs\.|INR\.|\b)\s?(\d+(\.\d{1,2})?)\b""")
         val matcher = amountPattern.matcher(message)
         return if (matcher.find()) {
             val amountString = matcher.group(1)
