@@ -46,15 +46,18 @@ class SmsReceiver : BroadcastReceiver() {
 
     private fun extractAmount(message: String): Int {
         val amountPattern =
-            Pattern.compile("""(?:Rs\s|INR\s|Rs\.|INR\.|\b)\s?(\d+(\.\d{1,2})?)\b""")
+            Pattern.compile("""(?:Rs\s|INR\s|Rs\.|INR\.|\b)\s?(\d{1,5}(?:,\d{3})*(\.\d{1,2})?)\b""")
+
         val matcher = amountPattern.matcher(message)
         return if (matcher.find()) {
             val amountString = matcher.group(1)
+            // Remove commas, if any, and parse as Int
+            val amountWithoutCommas = amountString?.replace(",", "")
             // Remove decimal part and parse as Int
-            amountString?.substringBefore(".")?.toIntOrNull()
-                ?: 0 // Provide a default value if amountString is null
+            val amountWithoutDecimals = amountWithoutCommas?.substringBefore(".")?.toIntOrNull()
+            amountWithoutDecimals ?: 0
         } else {
-            throw IllegalArgumentException("Amount not found in the message") // Throw an exception if no match is found
+            throw IllegalArgumentException("Amount not found in the message")
         }
     }
 
