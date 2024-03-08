@@ -10,7 +10,7 @@ import com.ali.onlinepaymenttracker.data.model.Expenditure
 @Dao
 interface ExpenditureDAO {
 
-    @Query("SELECT * FROM expenditures ORDER BY date ASC")
+    @Query("SELECT * FROM expenditures ORDER BY dateInMills")
     fun getAllExpenditures(): LiveData<List<Expenditure>>
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)

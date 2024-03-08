@@ -6,6 +6,9 @@ import androidx.lifecycle.ViewModelStoreOwner
 import androidx.recyclerview.widget.RecyclerView
 import com.ali.onlinepaymenttracker.data.model.Expenditure
 import com.ali.onlinepaymenttracker.databinding.ExpenditureCardBinding
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
 
 class ExpenditureListAdapter(private val viewModelStoreOwner: ViewModelStoreOwner) :
     RecyclerView.Adapter<ExpenditureListAdapter.MyViewHolder>() {
@@ -25,11 +28,13 @@ class ExpenditureListAdapter(private val viewModelStoreOwner: ViewModelStoreOwne
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         val currentItem = expenditureList[position]
+        val dateFormatter = SimpleDateFormat("MMMM dd, yyyy", Locale.US)
+
 
         with(holder.binding){
-            amount.text = "₹" + currentItem.amount.toString()
-            note.text = currentItem.note
-            date.text = currentItem.date
+            amountTv.text = "₹" + currentItem.amount.toString()
+            noteTv.text = currentItem.note
+            dateTv.text = dateFormatter.format(currentItem.dateInMills)
         }
     }
 

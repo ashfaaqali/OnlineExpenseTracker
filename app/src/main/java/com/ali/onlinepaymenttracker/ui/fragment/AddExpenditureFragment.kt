@@ -22,7 +22,8 @@ class AddExpenditureFragment : Fragment(), DatePickerDialog.OnDateSetListener {
     private lateinit var viewModel: ExpenditureViewModel
     private var amount: Int = 0
     private lateinit var note: String
-    private lateinit var date: String
+    private var dateMills: Long = 0
+    private lateinit var dateStr: String
     private lateinit var time: String
     private lateinit var location: String
     private val calendar = Calendar.getInstance()
@@ -69,22 +70,37 @@ class AddExpenditureFragment : Fragment(), DatePickerDialog.OnDateSetListener {
             binding.apply {
                 amount = editTextAmount.text.toString().toIntOrNull() ?: 0
                 note = editTextNote.text.toString()
-                date = dateTv.text.toString()
+                dateStr = dateTv.text.toString()
                 time = timeTv.text.toString()
                 location = editTextLocation.text.toString()
             }
 
-            if (inputCheck(amount, note, date))
-                addExpenditureToDb(amount, note, date, time, location)
+            dateMills = convertDateStrToDate(dateStr)
+            Log.i("DateMillis", "$dateMills")
+
+            if (amount == 0) {
+                binding.editTextAmount.error = "Please enter amount"
+            } else if (note.isEmpty()) {
+                binding.editTextNote.error = "Please enter note"
+            } else {
+                addExpenditureToDb(amount, note, dateMills, time, location)
+            }
         }
+    }
+
+    private fun convertDateStrToDate(dateStr: String): Long {
+        val date = dateFormatter.parse(dateStr)
+        return date?.time ?: 0
     }
 
     override fun onDateSet(p0: DatePicker?, year: Int, month: Int, dayOfMonth: Int) {
         calendar.set(year, month, dayOfMonth)
+        dateMills = calendar.timeInMillis
+        Log.e("onDateSet", "$dateMills")
         binding.dateTv.text = dateFormatter.format(calendar.timeInMillis)
     }
 
-    private fun inputCheck(amount: Int?, note: String?, dateTxt: String?): Boolean {
+    private fun inputCheck(amount: Int?, note: String?, dateTxt: Long): Boolean {
         var isValid = true
 
         binding.apply {
@@ -98,7 +114,7 @@ class AddExpenditureFragment : Fragment(), DatePickerDialog.OnDateSetListener {
                 isValid = false
             }
 
-            if (dateTxt.isNullOrEmpty()) {
+            if (dateTxt == null) {
                 dateTv.error = "Please select date"
                 isValid = false
             }
@@ -109,7 +125,7 @@ class AddExpenditureFragment : Fragment(), DatePickerDialog.OnDateSetListener {
     private fun addExpenditureToDb(
         amount: Int,
         note: String,
-        date: String,
+        dateMills: Long,
         time: String,
         location: String
     ) {
@@ -117,7 +133,7 @@ class AddExpenditureFragment : Fragment(), DatePickerDialog.OnDateSetListener {
             0,
             amount = amount,
             note = note,
-            date = date,
+            dateInMills = dateMills,
             time = time,
             location = location
         )
